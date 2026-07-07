@@ -1,0 +1,66 @@
+:root{
+	--green:#28a745;
+	--red:#dc3545;
+	--muted:#6c757d;
+	--focus:#66afe9;
+}
+
+/* Layout */
+body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:20px;color:#222}
+form{max-width:700px}
+label{display:block;margin-top:12px}
+
+/* Controls */
+input,select,textarea,button{
+	margin-top:6px;
+	font-size:1rem;
+	padding:8px 10px;
+	border:1px solid #cfcfcf;
+	border-radius:6px;
+	box-sizing:border-box;
+	width:100%;
+	transition:border-color .18s ease,box-shadow .18s ease,transform .12s ease;
+}
+
+select,textarea{resize:vertical}
+button{width:auto;padding:9px 14px;cursor:pointer;background:#007bff;color:#fff;border:none;border-radius:6px}
+
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--focus);box-shadow:0 0 0 3px rgba(102,175,233,0.12)}
+
+/* Valid state -> verde */
+input:valid,select:valid,textarea:valid{border-color:var(--green);box-shadow:0 0 0 3px rgba(40,167,69,0.10)}
+
+/* Invalid / missing -> rojo only after submit */
+form.submitted input:invalid,form.submitted select:invalid,form.submitted textarea:invalid{
+		border-color:var(--red);
+		box-shadow:0 0 0 3px rgba(220,53,69,0.06);
+		animation:shake .28s ease;
+}
+
+/* Shake animation for invalid controls */
+@keyframes shake{
+		0%{transform:translateX(0)}
+		25%{transform:translateX(-4px)}
+		50%{transform:translateX(4px)}
+		75%{transform:translateX(-2px)}
+	100%{transform:translateX(0)}
+}
+
+/* If user focuses an invalid control after submit, add a subtle focus ring */
+form.submitted input:invalid:focus,form.submitted select:invalid:focus,form.submitted textarea:invalid:focus{box-shadow:0 0 0 4px rgba(220,53,69,0.08)}
+
+/* Small helper for radio/checkbox groups */
+fieldset{border:0;padding:0;margin-top:12px}
+fieldset.legend{margin-bottom:6px}
+
+/* Horizontal groups: radios and checkbox */
+fieldset.horizontal{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+fieldset.horizontal > label{display:flex;align-items:center;gap:8px;margin:0}
+label.checkbox-inline{display:inline-flex;align-items:center;gap:8px;margin-top:12px;width:auto;white-space:nowrap}
+
+/* Ensure checkbox itself has consistent spacing when label is no-wrap */
+label.checkbox-inline input[type="checkbox"]{margin:0 8px 0 0}
+
+/* Make errors more noticeable for submit button feedback */
+button:active{transform:translateY(1px)}
+

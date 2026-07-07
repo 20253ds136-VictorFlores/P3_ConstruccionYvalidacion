@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario - Práctica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Formulario de validación síncrona</h1>
+    <form action="procesar.html" method="POST">
+        <label for="usuario">Nombre de usuario (5 a 15 caracteres):</label>
+        <input type="text" id="usuario" name="usuario" required minlength="5" maxlength="15">
+
+        <label for="edad">Edad (Rango permitido de 18 a 99 años):</label>
+        <input type="number" id="edad" name="edad" required min="18" max="99">
+
+        <label for="pais">País de residencia:</label>
+        <select id="pais" name="pais" required>
+            <option value="">Selecciona un país...</option>
+            <option value="MX">México</option>
+            <option value="CO">Colombia</option>
+            <option value="AR">Argentina</option>
+        </select>
+
+        <fieldset class="horizontal">
+            <legend>Tipo de cuenta:</legend>
+            <label><input type="radio" id="cuenta-personal" name="tipo_cuenta" value="personal" required> Personal</label>
+            <label><input type="radio" id="cuenta-empresa" name="tipo_cuenta" value="empresa"> Empresarial</label>
+        </fieldset>
+
+        <label class="checkbox-inline"><input type="checkbox" id="terminos" name="terminos" value="aceptado" required> Acepto los términos y condiciones de la plataforma</label>
+
+        <label for="comentarios">Comentarios o sugerencias (Máximo 200 caracteres):</label>
+        <textarea id="comentarios" name="comentarios" maxlength="200" rows="5"></textarea>
+
+        <div style="margin-top:16px">
+            <button type="submit">Enviar formulario</button>
+        </div>
+
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e){
+                form.classList.add('submitted');
+                if (!form.checkValidity()){
+                    e.preventDefault();
+                    const firstInvalid = form.querySelector(':invalid');
+                    if (firstInvalid) firstInvalid.focus();
+                }
+            });
+
+            form.addEventListener('input', function(){
+                if (form.classList.contains('submitted') && form.checkValidity()){
+                    form.classList.remove('submitted');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
